@@ -36,24 +36,6 @@ func main() {
 		panic(err.Error())
 	}
 	for {
-		//service, err1 := clientset.CoreV1().Services("").List(metav1.ListOptions{})
-		//labelSelector := "app=helloworld"
-		// here is service's label not selector's label
-		//labelSelector := "app=extlb"
-		//labelSelector := "app=govimk8s"
-		labelSelector := "consul=true"
-		service, err1 := clientset.CoreV1().Services("").List(metav1.ListOptions{LabelSelector: labelSelector})
-		if err1 != nil {
-			panic(err1.Error())
-		}
-		fmt.Println(service.Items[0])
-		fmt.Println(service.Items[0].GetName())
-		fmt.Println("get external IP", service.Items[0].Spec.ExternalIPs)
-		fmt.Println("get LoadBalancer IP", service.Items[0].Spec.LoadBalancerIP)
-		//fmt.Println("get NodePort", service.Items[0].Spec.Ports[0].NodePort)
-		fmt.Println("get annotation ", service.Items[0].GetAnnotations())
-		fmt.Println("get annotation ", service.Items[0].GetAnnotations()["consul.hashicorp.com/service-sync"])
-		//fmt.Println(service.Items[0].Spec)
 		pods, err := clientset.CoreV1().Pods("").List(metav1.ListOptions{})
 		if err != nil {
 			panic(err.Error())
